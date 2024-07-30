@@ -1,0 +1,24 @@
+{
+  "name": "gulp-starter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "",
+    "start": "npx gulp start",
+    "prebuild": "",
+    "build": "",
+    "gulp:tasks": "npx gulp --tasks",
+    "gulp:clean": "npx gulp clean"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "browser-sync": "^3.0.2",
+    "gulp": "^5.0.0",
+    "gulp-clean-dir": "^1.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify-es": "^3.0.0"
+  }
+}
