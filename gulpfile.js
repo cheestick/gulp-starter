@@ -1,11 +1,12 @@
 // const { src, dest, series, parallel, watch } = require("gulp");
 const { src, dest, series, parallel, watch } = require("gulp");
 const clean = require("gulp-clean");
-const concat = require("gulp-concat");
 const sourcemaps = require("gulp-sourcemaps");
+const concat = require("gulp-concat");
+const postcss = require("gulp-postcss");
+const autoprefixer = require("autoprefixer");
 const uglify = require("gulp-uglify-es").default;
 const browserSync = require("browser-sync").create();
-// const autoprefixer = import("gulp-autoprefixer");
 
 const paths = {
   dest: "./dist",
@@ -27,13 +28,11 @@ function html() {
 }
 
 async function css() {
-  return (
-    src("src/css/**/*.css")
-      // .pipe(autoprefixer())
-      .pipe(concat("styles.min.css"))
-      .pipe(dest(paths.destcss))
-      .pipe(browserSync.stream())
-  );
+  return src("src/css/**/*.css")
+    .pipe(postcss([autoprefixer()]))
+    .pipe(concat("styles.min.css"))
+    .pipe(dest(paths.destcss))
+    .pipe(browserSync.stream());
 }
 
 function scripts() {
@@ -51,9 +50,16 @@ function cleanDist() {
 }
 
 function watching() {
-  watch(["src/*.html", "src/html/**/*.html"]).on("change", browserSync.reload);
+  watch(["src/*.html", "src/html/**/*.html"], { ignoreInitial: false }).on(
+    "change",
+    browserSync.reload
+  );
   watch(["src/css/**/*.css"], { ignoreInitial: false }, css);
-  watch(["src/js/**/*.js"], { ignoreInitial: false }, series(clean, scripts));
+  watch(
+    ["src/js/**/*.js"],
+    { ignoreInitial: false },
+    series(cleanDist, scripts)
+  );
 }
 
 function build() {
