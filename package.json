@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "prestart": "",
     "start": "npx gulp start",
-    "prebuild": "",
     "build": "npx gulp build",
     "gulp:tasks": "npx gulp --tasks"
   },
-  "author": "",
+  "author": "Maksym Chystiakov",
   "license": "ISC",
   "description": "",
   "devDependencies": {
