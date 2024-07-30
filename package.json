@@ -7,8 +7,7 @@
     "start": "npx gulp start",
     "prebuild": "",
     "build": "npx gulp build",
-    "gulp:tasks": "npx gulp --tasks",
-    "gulp:clean": "npx gulp clean"
+    "gulp:tasks": "npx gulp --tasks"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +16,7 @@
     "browser-sync": "^3.0.2",
     "gulp": "^5.0.0",
     "gulp-autoprefixer": "^9.0.0",
-    "gulp-clean-dir": "^1.0.2",
+    "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify-es": "^3.0.0"
