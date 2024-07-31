@@ -75,6 +75,7 @@ function watching() {
     browserSync.reload
   );
   watch(["src/css/**/*.css"], { ignoreInitial: false }, css);
+  watch(["src/images/raw"], images);
   watch(
     ["src/js/**/*.js"],
     { ignoreInitial: false },
@@ -95,7 +96,10 @@ exports.images = images;
 exports.cleandist = cleanDist;
 exports.watching = watching;
 
-exports.start = series(series(html, css, scripts), parallel(watching));
+exports.start = series(series(html, css, images, scripts), parallel(watching));
 exports.build = series(cleanDist, build);
 
-exports.default = series(series(html, css, scripts), parallel(watching));
+exports.default = series(
+  series(html, css, images, scripts),
+  parallel(watching)
+);
