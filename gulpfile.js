@@ -10,7 +10,8 @@ const browserSync = require("browser-sync").create();
 const avif = require("gulp-avif");
 const webp = require("gulp-webp");
 const imagemin = require("gulp-imagemin");
-const chached = require("gulp-cached");
+// const chached = require("gulp-cached");
+const newer = require("gulp-newer");
 
 const paths = {
   dest: "./dist",
@@ -47,10 +48,13 @@ function images() {
   return src([paths.imgraw + "/*.*", "!" + paths.imgraw + "/*.svg"], {
     encoding: false,
   })
+    .pipe(newer(paths.imgfinal))
     .pipe(avif({ quality: 50 }))
     .pipe(src(paths.imgraw + "/*.*", { encoding: false }))
+    .pipe(newer(paths.imgfinal))
     .pipe(webp())
     .pipe(src(paths.imgraw + "/*.*", { encoding: false }))
+    .pipe(newer(paths.imgfinal))
     .pipe(imagemin())
     .pipe(dest(paths.imgfinal));
 }
