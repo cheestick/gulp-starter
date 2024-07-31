@@ -7,21 +7,19 @@ const postcss = require("gulp-postcss");
 const autoprefixer = require("autoprefixer");
 const uglify = require("gulp-uglify-es").default;
 const browserSync = require("browser-sync").create();
+const avif = require("gulp-avif");
+const webp = require("gulp-webp");
+const imagemin = require("gulp-imagemin");
+const chached = require("gulp-cached");
 
 const paths = {
   dest: "./dist",
   destjs: "./dist/src/js",
   destcss: "./dist/src/css",
   src: "./src",
+  imgraw: "./src/images/raw",
+  imgfinal: "./src/images/final",
 };
-
-function browsersync() {
-  browserSync.init({
-    server: {
-      baseDir: "./src/",
-    },
-  });
-}
 
 function html() {
   return src("src/*.html").pipe(dest(paths.dest));
@@ -45,11 +43,27 @@ function scripts() {
     .pipe(browserSync.stream());
 }
 
+function images() {
+  return src([paths.imgraw + "/*.*", "!" + paths.imgraw + "/*.svg"])
+    .pipe(avif({ quality: 50 }))
+    .pipe(src([paths.imgraw + "/*.*"]))
+    .pipe(webp())
+    .pipe(src([paths.imgraw + "/*.*"]))
+    .pipe(imagemin())
+    .pipe(dest(paths.imgfinal));
+}
+
 function cleanDist() {
   return src(paths.dest).pipe(clean());
 }
 
 function watching() {
+  browserSync.init({
+    server: {
+      baseDir: "./src/",
+    },
+  });
+
   watch(["src/*.html", "src/html/**/*.html"], { ignoreInitial: false }).on(
     "change",
     browserSync.reload
@@ -68,20 +82,14 @@ function build() {
   }).pipe(dest(paths.dest));
 }
 
-exports.browsersync = browsersync;
 exports.html = html;
 exports.css = css;
 exports.scripts = scripts;
+exports.images = images;
 exports.cleandist = cleanDist;
 exports.watching = watching;
 
-exports.start = series(
-  series(html, css, scripts),
-  parallel(browsersync, watching)
-);
+exports.start = series(series(html, css, scripts), parallel(watching));
 exports.build = series(cleanDist, build);
 
-exports.default = series(
-  series(html, css, scripts),
-  parallel(browsersync, watching)
-);
+exports.default = series(series(html, css, scripts), parallel(watching));
