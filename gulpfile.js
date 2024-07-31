@@ -44,11 +44,13 @@ function scripts() {
 }
 
 function images() {
-  return src([paths.imgraw + "/*.*", "!" + paths.imgraw + "/*.svg"])
+  return src([paths.imgraw + "/*.*", "!" + paths.imgraw + "/*.svg"], {
+    encoding: false,
+  })
     .pipe(avif({ quality: 50 }))
-    .pipe(src([paths.imgraw + "/*.*"]))
+    .pipe(src(paths.imgraw + "/*.*", { encoding: false }))
     .pipe(webp())
-    .pipe(src([paths.imgraw + "/*.*"]))
+    .pipe(src(paths.imgraw + "/*.*", { encoding: false }))
     .pipe(imagemin())
     .pipe(dest(paths.imgfinal));
 }
