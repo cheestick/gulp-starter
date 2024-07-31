@@ -13,7 +13,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.19",
     "browser-sync": "^3.0.2",
-    "gulp": "^5.0.0",
+    "gulp": "^4.0.2",
     "gulp-avif": "^1.1.1",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
@@ -21,6 +21,7 @@
     "gulp-newer": "^1.4.0",
     "gulp-postcss": "^10.0.0",
     "gulp-sourcemaps": "^3.0.0",
+    "gulp-svg-sprite": "^2.0.3",
     "gulp-uglify-es": "^3.0.0",
     "gulp-webp": "^4.0.1"
   }

@@ -10,8 +10,8 @@ const browserSync = require("browser-sync").create();
 const avif = require("gulp-avif");
 const webp = require("gulp-webp");
 const imagemin = require("gulp-imagemin");
-// const chached = require("gulp-cached");
 const newer = require("gulp-newer");
+const svgsprite = require("gulp-svg-sprite");
 
 const paths = {
   dest: "./dist",
@@ -59,6 +59,19 @@ function images() {
     .pipe(dest(paths.imgfinal));
 }
 
+function sprite() {
+  return src("*.svg", { cwd: paths.imgfinal }).pipe(
+    svgsprite({
+      mode: {
+        stack: {
+          sprite: "../sprite.svg",
+          example: true,
+        },
+      },
+    }).pipe(dest(paths.imgfinal))
+  );
+}
+
 function cleanDist() {
   return src(paths.dest).pipe(clean());
 }
@@ -70,15 +83,12 @@ function watching() {
     },
   });
 
-  watch(["src/*.html", "src/html/**/*.html"], { ignoreInitial: false }).on(
-    "change",
-    browserSync.reload
-  );
-  watch(["src/css/**/*.css"], { ignoreInitial: false }, css);
+  watch(["src/*.html", "src/html/**/*.html"]).on("change", browserSync.reload);
+  watch(["src/css/**/*.css"], css);
   watch(["src/images/raw"], images);
   watch(
     ["src/js/**/*.js"],
-    { ignoreInitial: false },
+
     series(cleanDist, scripts)
   );
 }
@@ -101,10 +111,11 @@ exports.html = html;
 exports.css = css;
 exports.scripts = scripts;
 exports.images = images;
+exports.sprite = sprite;
 exports.cleandist = cleanDist;
 exports.watching = watching;
 
-exports.start = series(series(html, css, images, scripts), parallel(watching));
+exports.start = series(series(css, html, images, scripts), parallel(watching));
 exports.build = series(cleanDist, build);
 
 exports.default = series(
