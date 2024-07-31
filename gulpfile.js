@@ -84,9 +84,17 @@ function watching() {
 }
 
 function build() {
-  return src(["src/css/main.css", "src/js/app.js", "src/**/*.html"], {
-    base: "src",
-  }).pipe(dest(paths.dest));
+  return src(
+    [
+      "src/css/main.css",
+      "src/js/app.js",
+      "src/images/raw/*.*",
+      "src/**/*.html",
+    ],
+    {
+      base: "src",
+    }
+  ).pipe(dest(paths.dest));
 }
 
 exports.html = html;
