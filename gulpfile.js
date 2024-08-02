@@ -16,6 +16,7 @@ import { scss } from "./gulp/tasks/scss.js";
 import { js } from "./gulp/tasks/js.js";
 import { images } from "./gulp/tasks/images.js";
 import { otfToTtf, ttfToWoff, fontsStyle } from "./gulp/tasks/fonts.js";
+import { svgiconsToSprite } from "./gulp/tasks/svgSprite.js";
 
 function watcher() {
   gulp.watch(path.watch.files, copy);
@@ -23,6 +24,7 @@ function watcher() {
   gulp.watch(path.watch.scss, scss);
   gulp.watch(path.watch.js, js);
   gulp.watch(path.watch.images, images);
+  gulp.watch(path.watch.svgicons, svgiconsToSprite);
 }
 
 const fonts = gulp.series(otfToTtf, ttfToWoff, fontsStyle);
@@ -37,3 +39,6 @@ const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher, server));
 gulp.task("clean", reset);
 gulp.task("default", dev);
 gulp.task("fonts", fonts);
+gulp.task("svgsprite", svgiconsToSprite);
+
+export { svgiconsToSprite };

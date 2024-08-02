@@ -21,6 +21,7 @@ export const path = {
     js: `${srcFolder}/js/app.js`,
     images: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp}`, // avif ??
     svg: `${srcFolder}/img/**/*.svg`,
+    svgicons: `${srcFolder}/svgicons/*.svg`,
   },
   watch: {
     files: `${srcFolder}/files/**/*.*`,
@@ -29,6 +30,7 @@ export const path = {
     scss: `${srcFolder}/scss/**/*.scss`,
     js: `${srcFolder}/**/*.js`,
     images: `${srcFolder}/img/**/*.{jpg,jpeg,png,svg,gif,ico,webp,avif}`,
+    svgicons: `${srcFolder}/svgicons/*.svg`,
   },
   clean: buildFolder,
   buildFolder,
