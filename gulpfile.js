@@ -19,6 +19,7 @@ import { js } from "./gulp/tasks/js.js";
 import { images } from "./gulp/tasks/images.js";
 import { otfToTtf, ttfToWoff, fontsStyle } from "./gulp/tasks/fonts.js";
 import { svgiconsToSprite } from "./gulp/tasks/svgSprite.js";
+import { zip } from "./gulp/tasks/zip.js";
 
 function watcher() {
   gulp.watch(path.watch.files, copy);
@@ -38,7 +39,8 @@ const mainTasks = gulp.series(
 
 const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher, server));
 const build = gulp.series(reset, mainTasks);
+const deployZip = gulp.series(reset, mainTasks, zip);
 
 gulp.task("default", dev);
 
-export { build, dev, svgiconsToSprite };
+export { build, dev, svgiconsToSprite, deployZip };
