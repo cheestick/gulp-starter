@@ -5,6 +5,11 @@ const buildFolder = "./dist";
 const srcFolder = "./src";
 
 export const path = {
+  ftp: "",
+  rootFolder,
+  srcFolder,
+  buildFolder,
+  clean: buildFolder,
   build: {
     files: `${buildFolder}/files/`,
     html: `${buildFolder}/`,
@@ -32,9 +37,4 @@ export const path = {
     images: `${srcFolder}/img/**/*.{jpg,jpeg,png,svg,gif,ico,webp,avif}`,
     svgicons: `${srcFolder}/svgicons/*.svg`,
   },
-  clean: buildFolder,
-  buildFolder,
-  srcFolder,
-  rootFolder,
-  ftp: "",
 };
