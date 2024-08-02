@@ -45,7 +45,7 @@
     "gulp-zip": "^6.0.0",
     "sass": "^1.77.8",
     "vinyl-ftp": "^0.6.1",
-    "webp-converter": "^2.2.3",
+    "webp-converter": "2.2.3",
     "webpack": "^5.93.0",
     "webpack-stream": "^7.0.0"
   }
