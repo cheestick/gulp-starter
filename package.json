@@ -6,8 +6,12 @@
   "type": "module",
   "scripts": {
     "start": "npx gulp",
+    "start:css": "npx gulp stylesCSS",
+    "start:scss": "npx gulp stylesSCSS",
     "dev": "npx gulp",
     "build": "npx gulp build --build",
+    "build:css": "npx gulp build --build",
+    "build:scss": "npx gulp build --build",
     "zip": "npx gulp deployZip --build",
     "deploy": "npx gulp deployFtp --build",
     "svgsprite": "npx gulp svgiconsToSprite"
