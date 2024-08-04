@@ -11,17 +11,21 @@ const srcFolder = "./src";
 
 const path = {
   srcFolder,
-  output: distFolder,
+  distFolder,
   build: {
+    html: `${distFolder}/`,
     css: `${distFolder}/css/`,
+    img: `${distFolder}/img/`,
   },
   src: {
     html: `${srcFolder}/*.html`,
     scss: `${srcFolder}/scss/*.scss`,
+    img: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,ico,svg,webp,avif}`,
   },
   watch: {
     html: ``,
     scss: `${srcFolder}/scss/**/*.scss`,
+    img: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,ico,svg,webp,avif}`,
   },
 };
 
@@ -33,15 +37,19 @@ const fileIncludeSettings = {
 const includeFiles = () => {
   return src(path.src.html)
     .pipe(fileinclude(fileIncludeSettings))
-    .pipe(dest(path.output));
+    .pipe(dest(path.build.html));
 };
 
 const scss = () => {
   return src(path.src.scss).pipe(sass()).pipe(dest(path.build.css));
 };
 
-const dev = parallel(includeFiles, scss);
+const copyImages = () => {
+  return src(path.src.img, { encoding: false }).pipe(dest(path.build.img));
+};
+
+const dev = parallel(includeFiles, scss, copyImages);
 
 task("default", dev);
 
-export { includeFiles, scss };
+export { includeFiles, scss, copyImages };
