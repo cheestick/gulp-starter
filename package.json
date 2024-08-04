@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "gulp 4.0.2  one more bundle",
   "main": "gulpfile.js",
+  "type": "module",
   "devDependencies": {
     "gulp": "^5.0.0",
     "gulp-clean": "^0.4.0",
