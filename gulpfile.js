@@ -3,6 +3,7 @@ import * as gulp from "gulp";
 import fileinclude from "gulp-file-include";
 import * as dartSass from "sass";
 import gulpSass from "gulp-sass";
+import server from "gulp-server-livereload";
 
 const sass = gulpSass(dartSass);
 
@@ -48,8 +49,17 @@ const copyImages = () => {
   return src(path.src.img, { encoding: false }).pipe(dest(path.build.img));
 };
 
+const serverOptions = {
+  livereload: true,
+  open: true,
+};
+
+const startServer = () => {
+  return src(distFolder).pipe(server(serverOptions));
+};
+
 const dev = parallel(includeFiles, scss, copyImages);
 
 task("default", dev);
 
-export { includeFiles, scss, copyImages };
+export { includeFiles, scss, copyImages, startServer };
