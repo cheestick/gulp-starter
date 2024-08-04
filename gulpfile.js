@@ -1,6 +1,10 @@
 const { series, parallel, src, dest, task } = gulp;
 import * as gulp from "gulp";
 import fileinclude from "gulp-file-include";
+import * as dartSass from "sass";
+import gulpSass from "gulp-sass";
+
+const sass = gulpSass(dartSass);
 
 const distFolder = "./dist";
 const srcFolder = "./src";
@@ -8,11 +12,17 @@ const srcFolder = "./src";
 const path = {
   srcFolder,
   output: distFolder,
-  build: {},
+  build: {
+    css: `${distFolder}/css/`,
+  },
   src: {
     html: `${srcFolder}/*.html`,
+    scss: `${srcFolder}/scss/*.scss`,
   },
-  watch: {},
+  watch: {
+    html: ``,
+    scss: `${srcFolder}/scss/**/*.scss`,
+  },
 };
 
 const fileIncludeSettings = {
@@ -26,10 +36,12 @@ const includeFiles = () => {
     .pipe(dest(path.output));
 };
 
-const dev = (done) => {
-  done();
+const scss = () => {
+  return src(path.src.scss).pipe(sass()).pipe(dest(path.build.css));
 };
+
+const dev = parallel(includeFiles, scss);
 
 task("default", dev);
 
-export { includeFiles };
+export { includeFiles, scss };
